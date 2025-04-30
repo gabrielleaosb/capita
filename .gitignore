@@ -4,8 +4,10 @@
 __pycache__/
 env/
 
+
 # VS Code
 .vscode/
 
 # Environment
 .env
+venv/

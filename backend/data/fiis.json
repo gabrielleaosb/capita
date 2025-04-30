@@ -1,0 +1,280 @@
+{
+  "fiis": {
+    "MXRF11.SA": {
+      "price": 9.31,
+      "currency": "BRL"
+    },
+    "HGLG11.SA": {
+      "price": 159.85,
+      "currency": "BRL"
+    },
+    "KNRI11.SA": {
+      "price": 146.11,
+      "currency": "BRL"
+    },
+    "VISC11.SA": {
+      "price": 104.98,
+      "currency": "BRL"
+    },
+    "XPLG11.SA": {
+      "price": 102.44,
+      "currency": "BRL"
+    },
+    "VILG11.SA": {
+      "price": 86.9,
+      "currency": "BRL"
+    },
+    "HGBS11.SA": {
+      "price": 194.41,
+      "currency": "BRL"
+    },
+    "XPML11.SA": {
+      "price": 106.36,
+      "currency": "BRL"
+    },
+    "BCFF11.SA": {
+      "price": 7.28,
+      "currency": "BRL"
+    },
+    "RECT11.SA": {
+      "price": 33.18,
+      "currency": "BRL"
+    },
+    "RBRF11.SA": {
+      "price": 6.89,
+      "currency": "BRL"
+    },
+    "RBRP11.SA": {
+      "price": 49.02,
+      "currency": "BRL"
+    },
+    "RBRR11.SA": {
+      "price": 84.95,
+      "currency": "BRL"
+    },
+    "RBRL11.SA": {
+      "price": 79.91,
+      "currency": "BRL"
+    },
+    "RBRY11.SA": {
+      "price": 93.8,
+      "currency": "BRL"
+    },
+    "RBRX11.SA": {
+      "price": 8.03,
+      "currency": "BRL"
+    },
+    "RBRI11.SA": {
+      "price": 917.0,
+      "currency": "BRL"
+    },
+    "RBRD11.SA": {
+      "price": 41.0,
+      "currency": "BRL"
+    },
+    "BCIA11.SA": {
+      "price": 86.24,
+      "currency": "BRL"
+    },
+    "BRCR11.SA": {
+      "price": 42.79,
+      "currency": "BRL"
+    },
+    "BTLG11.SA": {
+      "price": 100.47,
+      "currency": "BRL"
+    },
+    "BTCR11.SA": {
+      "price": 88.0,
+      "currency": "BRL"
+    },
+    "CPTS11.SA": {
+      "price": 7.57,
+      "currency": "BRL"
+    },
+    "CVBI11.SA": {
+      "price": 84.14,
+      "currency": "BRL"
+    },
+    "DEVA11.SA": {
+      "price": 29.65,
+      "currency": "BRL"
+    },
+    "FIIB11.SA": {
+      "price": 502.1,
+      "currency": "BRL"
+    },
+    "GALG11.SA": {
+      "price": 9.08,
+      "currency": "BRL"
+    },
+    "GGRC11.SA": {
+      "price": 9.82,
+      "currency": "BRL"
+    },
+    "HCTR11.SA": {
+      "price": 21.77,
+      "currency": "BRL"
+    },
+    "HGCR11.SA": {
+      "price": 96.83,
+      "currency": "BRL"
+    },
+    "HGFF11.SA": {
+      "price": 73.09,
+      "currency": "BRL"
+    },
+    "HGPO11.SA": {
+      "price": 132.05,
+      "currency": "BRL"
+    },
+    "HSML11.SA": {
+      "price": 85.04,
+      "currency": "BRL"
+    },
+    "IRDM11.SA": {
+      "price": 68.24,
+      "currency": "BRL"
+    },
+    "JSRE11.SA": {
+      "price": 63.0,
+      "currency": "BRL"
+    },
+    "KFOF11.SA": {
+      "price": 80.0,
+      "currency": "BRL"
+    },
+    "LVBI11.SA": {
+      "price": 101.2,
+      "currency": "BRL"
+    },
+    "MALL11.SA": {
+      "price": 102.4,
+      "currency": "BRL"
+    },
+    "MCCI11.SA": {
+      "price": 85.88,
+      "currency": "BRL"
+    },
+    "MGCR11.SA": {
+      "price": 9.4,
+      "currency": "BRL"
+    },
+    "MGFF11.SA": {
+      "price": 69.99,
+      "currency": "BRL"
+    },
+    "MORE11.SA": {
+      "price": 76.21,
+      "currency": "BRL"
+    },
+    "NVHO11.SA": {
+      "price": 11.2,
+      "currency": "BRL"
+    },
+    "PATC11.SA": {
+      "price": 35.16,
+      "currency": "BRL"
+    },
+    "PLCR11.SA": {
+      "price": 82.0,
+      "currency": "BRL"
+    },
+    "PLRI11.SA": {
+      "price": 14.7,
+      "currency": "BRL"
+    },
+    "PVBI11.SA": {
+      "price": 79.54,
+      "currency": "BRL"
+    },
+    "QAGR11.SA": {
+      "price": 41.0,
+      "currency": "BRL"
+    },
+    "QAMI11.SA": {
+      "price": 84.68,
+      "currency": "BRL"
+    },
+    "RECR11.SA": {
+      "price": 83.63,
+      "currency": "BRL"
+    },
+    "RZAK11.SA": {
+      "price": 82.24,
+      "currency": "BRL"
+    },
+    "RZTR11.SA": {
+      "price": 92.0,
+      "currency": "BRL"
+    },
+    "SADI11.SA": {
+      "price": 8.75,
+      "currency": "BRL"
+    },
+    "SDIL11.SA": {
+      "price": 96.5,
+      "currency": "BRL"
+    },
+    "SNCI11.SA": {
+      "price": 90.02,
+      "currency": "BRL"
+    },
+    "SPTW11.SA": {
+      "price": 34.4,
+      "currency": "BRL"
+    },
+    "TRXF11.SA": {
+      "price": 103.31,
+      "currency": "BRL"
+    },
+    "URPR11.SA": {
+      "price": 56.15,
+      "currency": "BRL"
+    },
+    "VGIR11.SA": {
+      "price": 9.32,
+      "currency": "BRL"
+    },
+    "VGHF11.SA": {
+      "price": 7.64,
+      "currency": "BRL"
+    },
+    "VGIP11.SA": {
+      "price": 83.5,
+      "currency": "BRL"
+    },
+    "VINO11.SA": {
+      "price": 5.38,
+      "currency": "BRL"
+    },
+    "VIUR11.SA": {
+      "price": 5.62,
+      "currency": "BRL"
+    },
+    "VRTA11.SA": {
+      "price": 82.8,
+      "currency": "BRL"
+    },
+    "VSLH11.SA": {
+      "price": 2.68,
+      "currency": "BRL"
+    },
+    "VTLT11.SA": {
+      "price": 88.3,
+      "currency": "BRL"
+    },
+    "XPCA11.SA": {
+      "price": 7.51,
+      "currency": "BRL"
+    },
+    "XPCI11.SA": {
+      "price": 79.69,
+      "currency": "BRL"
+    },
+    "XPIN11.SA": {
+      "price": 70.5,
+      "currency": "BRL"
+    }
+  }
+}

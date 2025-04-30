@@ -1,0 +1,516 @@
+{
+  "stocks": {
+    "PETR4.SA": {
+      "price": 30.11,
+      "currency": "BRL"
+    },
+    "VALE3.SA": {
+      "price": 53.17,
+      "currency": "BRL"
+    },
+    "ITUB4.SA": {
+      "price": 35.35,
+      "currency": "BRL"
+    },
+    "BBDC4.SA": {
+      "price": 13.51,
+      "currency": "BRL"
+    },
+    "BBAS3.SA": {
+      "price": 28.73,
+      "currency": "BRL"
+    },
+    "ABEV3.SA": {
+      "price": 14.68,
+      "currency": "BRL"
+    },
+    "WEGE3.SA": {
+      "price": 45.39,
+      "currency": "BRL"
+    },
+    "RENT3.SA": {
+      "price": 42.79,
+      "currency": "BRL"
+    },
+    "SUZB3.SA": {
+      "price": 50.37,
+      "currency": "BRL"
+    },
+    "GGBR4.SA": {
+      "price": 14.93,
+      "currency": "BRL"
+    },
+    "JBSS3.SA": {
+      "price": 43.94,
+      "currency": "BRL"
+    },
+    "LREN3.SA": {
+      "price": 14.51,
+      "currency": "BRL"
+    },
+    "RAIL3.SA": {
+      "price": 19.27,
+      "currency": "BRL"
+    },
+    "EMBR3.SA": {
+      "price": 64.91,
+      "currency": "BRL"
+    },
+    "AZUL4.SA": {
+      "price": 1.62,
+      "currency": "BRL"
+    },
+    "CCRO3.SA": {
+      "price": 13.37,
+      "currency": "BRL"
+    },
+    "EQTL3.SA": {
+      "price": 36.43,
+      "currency": "BRL"
+    },
+    "HYPE3.SA": {
+      "price": 23.73,
+      "currency": "BRL"
+    },
+    "IRBR3.SA": {
+      "price": 46.17,
+      "currency": "BRL"
+    },
+    "MGLU3.SA": {
+      "price": 9.49,
+      "currency": "BRL"
+    },
+    "B3SA3.SA": {
+      "price": 13.2,
+      "currency": "BRL"
+    },
+    "COGN3.SA": {
+      "price": 2.56,
+      "currency": "BRL"
+    },
+    "CYRE3.SA": {
+      "price": 24.61,
+      "currency": "BRL"
+    },
+    "ECOR3.SA": {
+      "price": 6.59,
+      "currency": "BRL"
+    },
+    "EGIE3.SA": {
+      "price": 41.59,
+      "currency": "BRL"
+    },
+    "ELET3.SA": {
+      "price": 43.89,
+      "currency": "BRL"
+    },
+    "FLRY3.SA": {
+      "price": 12.77,
+      "currency": "BRL"
+    },
+    "GOAU4.SA": {
+      "price": 8.4,
+      "currency": "BRL"
+    },
+    "GUAR3.SA": {
+      "price": 7.87,
+      "currency": "BRL"
+    },
+    "HAPV3.SA": {
+      "price": 2.28,
+      "currency": "BRL"
+    },
+    "KLBN4.SA": {
+      "price": 3.69,
+      "currency": "BRL"
+    },
+    "LWSA3.SA": {
+      "price": 3.56,
+      "currency": "BRL"
+    },
+    "MRFG3.SA": {
+      "price": 21.47,
+      "currency": "BRL"
+    },
+    "MRVE3.SA": {
+      "price": 5.88,
+      "currency": "BRL"
+    },
+    "NTCO3.SA": {
+      "price": 9.51,
+      "currency": "BRL"
+    },
+    "PCAR3.SA": {
+      "price": 4.39,
+      "currency": "BRL"
+    },
+    "QUAL3.SA": {
+      "price": 2.09,
+      "currency": "BRL"
+    },
+    "RADL3.SA": {
+      "price": 19.75,
+      "currency": "BRL"
+    },
+    "SANB11.SA": {
+      "price": 29.13,
+      "currency": "BRL"
+    },
+    "SBSP3.SA": {
+      "price": 113.43,
+      "currency": "BRL"
+    },
+    "TAEE11.SA": {
+      "price": 35.8,
+      "currency": "BRL"
+    },
+    "TIMS3.SA": {
+      "price": 18.91,
+      "currency": "BRL"
+    },
+    "TOTS3.SA": {
+      "price": 37.42,
+      "currency": "BRL"
+    },
+    "UGPA3.SA": {
+      "price": 17.7,
+      "currency": "BRL"
+    },
+    "USIM5.SA": {
+      "price": 5.55,
+      "currency": "BRL"
+    },
+    "VIVT3.SA": {
+      "price": 27.49,
+      "currency": "BRL"
+    },
+    "YDUQ3.SA": {
+      "price": 14.29,
+      "currency": "BRL"
+    },
+    "AAPL": {
+      "price": 210.15,
+      "currency": "USD"
+    },
+    "MSFT": {
+      "price": 388.46,
+      "currency": "USD"
+    },
+    "GOOGL": {
+      "price": 156.37,
+      "currency": "USD"
+    },
+    "AMZN": {
+      "price": 180.74,
+      "currency": "USD"
+    },
+    "NVDA": {
+      "price": 105.81,
+      "currency": "USD"
+    },
+    "META": {
+      "price": 537.33,
+      "currency": "USD"
+    },
+    "TSLA": {
+      "price": 275.94,
+      "currency": "USD"
+    },
+    "BRK-B": {
+      "price": 530.9,
+      "currency": "USD"
+    },
+    "JPM": {
+      "price": 241.57,
+      "currency": "USD"
+    },
+    "V": {
+      "price": 341.66,
+      "currency": "USD"
+    },
+    "UNH": {
+      "price": 409.66,
+      "currency": "USD"
+    },
+    "MA": {
+      "price": 539.84,
+      "currency": "USD"
+    },
+    "HD": {
+      "price": 355.6,
+      "currency": "USD"
+    },
+    "PG": {
+      "price": 161.71,
+      "currency": "USD"
+    },
+    "XOM": {
+      "price": 104.82,
+      "currency": "USD"
+    },
+    "LLY": {
+      "price": 893.21,
+      "currency": "USD"
+    },
+    "JNJ": {
+      "price": 155.53,
+      "currency": "USD"
+    },
+    "MRK": {
+      "price": 84.57,
+      "currency": "USD"
+    },
+    "ABBV": {
+      "price": 191.69,
+      "currency": "USD"
+    },
+    "AVGO": {
+      "price": 188.12,
+      "currency": "USD"
+    },
+    "COST": {
+      "price": 988.84,
+      "currency": "USD"
+    },
+    "PEP": {
+      "price": 135.28,
+      "currency": "USD"
+    },
+    "KO": {
+      "price": 72.4,
+      "currency": "USD"
+    },
+    "WMT": {
+      "price": 96.68,
+      "currency": "USD"
+    },
+    "BAC": {
+      "price": 39.48,
+      "currency": "USD"
+    },
+    "DIS": {
+      "price": 89.65,
+      "currency": "USD"
+    },
+    "ADBE": {
+      "price": 369.78,
+      "currency": "USD"
+    },
+    "NFLX": {
+      "price": 1117.21,
+      "currency": "USD"
+    },
+    "CRM": {
+      "price": 265.39,
+      "currency": "USD"
+    },
+    "PFE": {
+      "price": 24.22,
+      "currency": "USD"
+    },
+    "T": {
+      "price": 27.5,
+      "currency": "USD"
+    },
+    "INTC": {
+      "price": 19.73,
+      "currency": "USD"
+    },
+    "CSCO": {
+      "price": 57.15,
+      "currency": "USD"
+    },
+    "CMCSA": {
+      "price": 33.69,
+      "currency": "USD"
+    },
+    "ABT": {
+      "price": 129.76,
+      "currency": "USD"
+    },
+    "CVX": {
+      "price": 134.94,
+      "currency": "USD"
+    },
+    "MCD": {
+      "price": 316.43,
+      "currency": "USD"
+    },
+    "NKE": {
+      "price": 55.68,
+      "currency": "USD"
+    },
+    "WFC": {
+      "price": 70.39,
+      "currency": "USD"
+    },
+    "TMO": {
+      "price": 426.86,
+      "currency": "USD"
+    },
+    "DHR": {
+      "price": 198.12,
+      "currency": "USD"
+    },
+    "TXN": {
+      "price": 156.95,
+      "currency": "USD"
+    },
+    "LIN": {
+      "price": 451.3,
+      "currency": "USD"
+    },
+    "NEE": {
+      "price": 66.07,
+      "currency": "USD"
+    },
+    "PM": {
+      "price": 170.52,
+      "currency": "USD"
+    },
+    "ORCL": {
+      "price": 138.71,
+      "currency": "USD"
+    },
+    "ACN": {
+      "price": 295.95,
+      "currency": "USD"
+    },
+    "QCOM": {
+      "price": 145.77,
+      "currency": "USD"
+    },
+    "IBM": {
+      "price": 239.44,
+      "currency": "USD"
+    },
+    "AMGN": {
+      "price": 288.68,
+      "currency": "USD"
+    },
+    "MDT": {
+      "price": 84.14,
+      "currency": "USD"
+    },
+    "HON": {
+      "price": 209.93,
+      "currency": "USD"
+    },
+    "UNP": {
+      "price": 212.49,
+      "currency": "USD"
+    },
+    "LOW": {
+      "price": 221.33,
+      "currency": "USD"
+    },
+    "UPS": {
+      "price": 94.12,
+      "currency": "USD"
+    },
+    "SBUX": {
+      "price": 78.9,
+      "currency": "USD"
+    },
+    "CAT": {
+      "price": 302.35,
+      "currency": "USD"
+    },
+    "GS": {
+      "price": 541.59,
+      "currency": "USD"
+    },
+    "RTX": {
+      "price": 125.17,
+      "currency": "USD"
+    },
+    "BLK": {
+      "price": 902.67,
+      "currency": "USD"
+    },
+    "BA": {
+      "price": 181.15,
+      "currency": "USD"
+    },
+    "SPGI": {
+      "price": 495.21,
+      "currency": "USD"
+    },
+    "PLD": {
+      "price": 100.47,
+      "currency": "USD"
+    },
+    "MS": {
+      "price": 113.79,
+      "currency": "USD"
+    },
+    "AXP": {
+      "price": 262.17,
+      "currency": "USD"
+    },
+    "AMAT": {
+      "price": 146.66,
+      "currency": "USD"
+    },
+    "ISRG": {
+      "price": 508.86,
+      "currency": "USD"
+    },
+    "BKNG": {
+      "price": 4901.07,
+      "currency": "USD"
+    },
+    "NOW": {
+      "price": 942.59,
+      "currency": "USD"
+    },
+    "LMT": {
+      "price": 474.29,
+      "currency": "USD"
+    },
+    "GE": {
+      "price": 199.13,
+      "currency": "USD"
+    },
+    "GILD": {
+      "price": 104.74,
+      "currency": "USD"
+    },
+    "ZTS": {
+      "price": 155.48,
+      "currency": "USD"
+    },
+    "MO": {
+      "price": 59.26,
+      "currency": "USD"
+    },
+    "DE": {
+      "price": 457.55,
+      "currency": "USD"
+    },
+    "SYK": {
+      "price": 369.13,
+      "currency": "USD"
+    },
+    "CB": {
+      "price": 284.37,
+      "currency": "USD"
+    },
+    "MMC": {
+      "price": 222.15,
+      "currency": "USD"
+    },
+    "ADP": {
+      "price": 298.71,
+      "currency": "USD"
+    },
+    "TGT": {
+      "price": 95.9,
+      "currency": "USD"
+    },
+    "MDLZ": {
+      "price": 68.51,
+      "currency": "USD"
+    }
+  }
+}
