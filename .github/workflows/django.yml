@@ -8,13 +8,10 @@ on:
 
 jobs:
   test:
-    name: Test with Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    
     strategy:
-      fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]  
 
     steps:
     - uses: actions/checkout@v4
@@ -25,18 +22,21 @@ jobs:
         python-version: ${{ matrix.python-version }}
         
     - name: Install dependencies
+      working-directory: ./backend  
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install firebase-admin  # Pacote para Firebase
+        pip install firebase-admin
         
     - name: Set up Firebase credentials
+      working-directory: ./backend
       env:
         FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
       run: |
         echo "$FIREBASE_CREDENTIALS" > firebase_credentials.json
         
     - name: Run tests
+      working-directory: ./backend
       env:
         GOOGLE_APPLICATION_CREDENTIALS: firebase_credentials.json
         FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
