@@ -27,7 +27,7 @@ def verify_email_with_hunter(email):
             result = data.get('data', {})
             status = result.get('status')
             
-            is_valid = status in ['valid', 'accept_all', 'unknown']  # Adicionamos 'unknown' como válido
+            is_valid = status in ['valid', 'accept_all', 'unknown']  
             reason = result.get('result', 'Sem motivo específico')
             score = result.get('score', 0)
             

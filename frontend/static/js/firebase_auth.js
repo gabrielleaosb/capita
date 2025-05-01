@@ -1,10 +1,45 @@
 console.log("firebase_auth.js carregado!");
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+console.log("Script totalmente carregado e executando");
+console.log("Firebase Config:", firebaseConfig);
 
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+getRedirectResult(auth)
+  .then((result) => {
+    console.log("Resultado do redirect:", result);
+    if (result && result.user) {
+      console.log("Usuário autenticado pelo redirect:", result.user);
+      window.location.href = "/firebase_test/";
+    } else {
+      // Log extra para investigar
+      console.log("Nenhum usuário retornado pelo redirect.");
+      console.log("Usuário atual do Firebase Auth:", auth.currentUser);
+      // Mostra a URL atual
+      console.log("URL atual:", window.location.href);
+    }
+  })
+  .catch((error) => {
+    console.error("Erro no redirect do Google:", error);
+    // Log detalhado do erro
+    if (error.code) console.error("Código do erro:", error.code);
+    if (error.message) console.error("Mensagem do erro:", error.message);
+    if (error.email) console.error("E-mail relacionado:", error.email);
+    if (error.credential) console.error("Credencial:", error.credential);
+  });
+
+document.getElementById('googleSignIn').addEventListener('click', async () => {
+    await auth.signOut();
+    signInWithRedirect(auth, provider);
+});
+document.getElementById('googleRegister').addEventListener('click', async () => {
+    await auth.signOut();
+    signInWithRedirect(auth, provider);
+});
 
 document.getElementById('showLogin').onclick = () => {
     document.getElementById('registerScreen').style.display = 'none';
@@ -18,11 +53,13 @@ document.getElementById('showRegister').onclick = () => {
 };
 
 async function verifyEmail(email) {
+    console.log("[DEBUG] Iniciando verificação de e-mail para:", email);
     const resultDiv = document.getElementById('registerResult');
     resultDiv.className = "msg loading";
     resultDiv.innerText = "Verificando e-mail...";
     
     try {
+        console.log("[DEBUG] Enviando requisição para /api/check-email/");
         const response = await fetch('/api/check-email/', {
             method: 'POST',
             headers: {
@@ -31,51 +68,52 @@ async function verifyEmail(email) {
             },
             body: `email=${encodeURIComponent(email)}`
         });
-        
+
+        console.log("[DEBUG] Status da resposta:", response.status);
         const data = await response.json();
+        console.log("[DEBUG] Resposta completa da API:", JSON.stringify(data, null, 2));
         
         if (!response.ok) {
-            throw new Error(data.message || 'Erro desconhecido');
+            throw new Error(data.message || 'Erro desconhecido na API');
         }
         
-        switch(data.status) {
-            case 'valid':
-                return true;
-                
-            case 'invalid':
-                resultDiv.className = "msg error";
-                switch(data.code) {
-                    case 'email_already_exists':
-                        resultDiv.innerText = "Este e-mail já está cadastrado!";
-                        break;
-                    case 'invalid_format':
-                        resultDiv.innerText = "Por favor, insira um e-mail válido";
-                        break;
-                    case 'email_verification_failed':
-                        resultDiv.innerText = data.message;
-                        break;
-                    default:
-                        resultDiv.innerText = "E-mail inválido";
-                }
-                return false;
-                
-            case 'error':
-                resultDiv.className = "msg error";
-                resultDiv.innerText = data.message || "Erro no servidor";
-                return false;
-                
-            default:
-                resultDiv.className = "msg error";
-                resultDiv.innerText = "Digite um e-mail válido";
-                return false;
+        if (data.exists) {
+            console.log("[DEBUG] E-mail já existe");
+            resultDiv.className = "msg error";
+            resultDiv.innerText = "Este e-mail já está cadastrado!";
+            return false;
         }
+
+        if (data.status === "verified" && data.valid) {
+            console.log("[DEBUG] E-mail verificado e válido");
+            return true;
+        }
+
+        if (data.status === "rejected" || !data.valid) {
+            console.log("[DEBUG] E-mail rejeitado");
+            resultDiv.className = "msg error";
+            resultDiv.innerText = "E-mail inválido";
+            return false;
+        }
+
+        console.warn("[DEBUG] Status não tratado:", data.status);
+        resultDiv.className = "msg error";
+        resultDiv.innerText = "Não foi possível verificar o e-mail";
+        return false;
         
     } catch (error) {
-        console.error('Erro ao verificar e-mail:', error);
+        console.error('[DEBUG] Erro completo na verificação:', {
+            error: error,
+            message: error.message,
+            stack: error.stack
+        });
+        
         resultDiv.className = "msg error";
         
         if (error.message.includes('Failed to fetch')) {
             resultDiv.innerText = "Erro de conexão. Verifique sua internet.";
+        } else if (error.message.includes('Resposta da API mal formatada')) {
+            resultDiv.innerText = "Problema no servidor. Tente novamente mais tarde.";
         } else {
             resultDiv.innerText = error.message || "Erro ao verificar e-mail. Tente novamente.";
         }
@@ -141,6 +179,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const resultDiv = document.getElementById('loginResult');
     resultDiv.className = "msg";
     resultDiv.innerText = "Entrando...";
+
+    console.log("Tentando login com:", {email, password}); // Log dos dados de entrada
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
