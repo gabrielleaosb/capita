@@ -5,6 +5,15 @@ from django.views.decorators.csrf import csrf_exempt
 from firebase_admin import auth
 from .utils.email_verifier import verify_email_with_hunter
 import logging
+from django.conf import settings
+
+FB_API_KEY = settings.FB_API_KEY
+FB_AUTH_DOMAIN = settings.FB_AUTH_DOMAIN
+FB_PROJECT_ID = settings.FB_PROJECT_ID
+FB_STORAGE_BUCKET = settings.FB_STORAGE_BUCKET
+FB_MESSAGING_SENDER_ID = settings.FB_MESSAGING_SENDER_ID
+FB_APP_ID = settings.FB_APP_ID
+FB_MEASUREMENT_ID = settings.FB_MEASUREMENT_ID
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +58,16 @@ def firebase_test(request):
                 'message': str(e)
             }, status=500)
     
-    return render(request, 'firebase_test.html')
+    return render(request, 'firebase_test.html', {
+        'FB_API_KEY': FB_API_KEY,
+        'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
+        'FB_PROJECT_ID': FB_PROJECT_ID,
+        'FB_STORAGE_BUCKET': FB_STORAGE_BUCKET,
+        'FB_MESSAGING_SENDER_ID': FB_MESSAGING_SENDER_ID,
+        'FB_APP_ID': FB_APP_ID,
+        'FB_MEASUREMENT_ID': FB_MEASUREMENT_ID,
+        
+    })
 
 @csrf_exempt
 def check_email(request):

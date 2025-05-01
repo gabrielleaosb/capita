@@ -2,13 +2,22 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-
-load_dotenv()
-HUNTER_API_KEY = os.getenv('HUNTER_API_KEY')
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+load_dotenv()
+
+HUNTER_API_KEY = os.getenv('HUNTER_API_KEY')
+
 SECRET_KEY = os.getenv('SECRET_KEY_DJANGO')
+
+FB_API_KEY=os.getenv('FB_API_KEY')
+FB_AUTH_DOMAIN=os.getenv('FB_AUTH_DOMAIN')
+FB_PROJECT_ID=os.getenv('FB_PROJECT_ID')
+FB_STORAGE_BUCKET=os.getenv('FB_STORAGE_BUCKET')
+
+FB_MESSAGING_SENDER_ID=os.getenv('FB_MESSAGING_SENDER_ID')
+FB_APP_ID=os.getenv('FB_APP_ID')
+FB_MEASUREMENT_ID=os.getenv('FB_MEASUREMENT_ID')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

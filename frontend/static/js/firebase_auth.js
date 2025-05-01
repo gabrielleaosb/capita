@@ -2,15 +2,6 @@ console.log("firebase_auth.js carregado!");
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCU8VUf9yNIgY3BiqsENRdHuaFqWri-WjA",
-    authDomain: "capita-3da27.firebaseapp.com",
-    projectId: "capita-3da27",
-    storageBucket: "capita-3da27.appspot.com",
-    messagingSenderId: "235088314894",
-    appId: "1:235088314894:web:9e7acbd6183d3e0b9bb25f",
-    measurementId: "G-9TRKQQKF1X"
-};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
