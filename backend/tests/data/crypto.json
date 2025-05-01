@@ -1,23 +1,23 @@
 {
   "cryptos": {
     "BTC-USD": {
-      "price": 93934.12,
+      "price": 94714.44,
       "currency": "USD"
     },
     "ETH-USD": {
-      "price": 1767.02,
+      "price": 1803.45,
       "currency": "USD"
     },
     "BNB-USD": {
-      "price": 597.03,
+      "price": 599.74,
       "currency": "USD"
     },
     "SOL-USD": {
-      "price": 142.7,
+      "price": 147.25,
       "currency": "USD"
     },
     "ADA-USD": {
-      "price": 0.68,
+      "price": 0.69,
       "currency": "USD"
     },
     "DOGE-USD": {
@@ -25,15 +25,15 @@
       "currency": "USD"
     },
     "XRP-USD": {
-      "price": 2.17,
+      "price": 2.21,
       "currency": "USD"
     },
     "AVAX-USD": {
-      "price": 20.88,
+      "price": 21.19,
       "currency": "USD"
     },
     "DOT-USD": {
-      "price": 4.07,
+      "price": 4.14,
       "currency": "USD"
     },
     "TRX-USD": {
@@ -41,27 +41,31 @@
       "currency": "USD"
     },
     "LINK-USD": {
-      "price": 14.12,
+      "price": 14.41,
       "currency": "USD"
     },
     "LTC-USD": {
-      "price": 83.09,
+      "price": 84.41,
       "currency": "USD"
     },
     "BCH-USD": {
-      "price": 364.13,
+      "price": 367.63,
+      "currency": "USD"
+    },
+    "ATOM-USD": {
+      "price": 4.34,
       "currency": "USD"
     },
     "ETC-USD": {
-      "price": 16.45,
+      "price": 16.73,
       "currency": "USD"
     },
     "FIL-USD": {
-      "price": 2.75,
+      "price": 2.81,
       "currency": "USD"
     },
     "ICP-USD": {
-      "price": 4.83,
+      "price": 4.96,
       "currency": "USD"
     },
     "APT-USD": {
@@ -73,11 +77,11 @@
       "currency": "USD"
     },
     "OP-USD": {
-      "price": 0.73,
+      "price": 0.74,
       "currency": "USD"
     },
     "TIA-USD": {
-      "price": 2.69,
+      "price": 2.72,
       "currency": "USD"
     }
   }
