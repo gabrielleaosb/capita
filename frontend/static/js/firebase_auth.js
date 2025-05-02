@@ -152,13 +152,10 @@ async function handleLogout(e) {
 
 function initListeners() {
   uiElements.showLogin?.addEventListener('click', () => {
-    uiElements.screens.register.style.display = 'none';
-    uiElements.screens.login.style.display = 'block';
+    document.getElementById('slideContainer').style.transform = "translateX(0%)";
   });
-
   uiElements.showRegister?.addEventListener('click', () => {
-    uiElements.screens.login.style.display = 'none';
-    uiElements.screens.register.style.display = 'block';
+    document.getElementById('slideContainer').style.transform = "translateX(-50%)";
   });
 
   uiElements.registerForm?.addEventListener('submit', handleRegister);

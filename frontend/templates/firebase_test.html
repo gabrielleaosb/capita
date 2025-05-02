@@ -3,90 +3,64 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <title>Capita - Registro e Login</title>
+    <title>Capita</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token }}">
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <style>
-      #slideContainer {
-        transition: transform 0.5s cubic-bezier(.4,2,.6,1);
-      }
-      .spinner {
-        border: 4px solid #e0e7ff;
-        border-top: 4px solid #6366f1;
-        border-radius: 50%;
-        width: 28px;
-        height: 28px;
-        animation: spin 0.8s linear infinite;
-        margin: 0 auto;
-      }
-      @keyframes spin {
-        0% { transform: rotate(0deg);}
-        100% { transform: rotate(360deg);}
+      body {
+        background-color: #685cdc;
       }
     </style>
   </head>
-  <body class="bg-[#4f46e5] min-h-screen flex items-center justify-center font-sans">
-    <div class="w-full mx-28 h-full max-w-[1400px] max-h-[1000px]">
-      <div class="relative overflow-hidden rounded-3xl shadow-2xl" style="min-height: 900;">
-        <div id="slideContainer" class="flex w-[200%] h-full">
-          <!-- Login: formulário à esquerda, ilustração à direita -->
-          <div class="flex w-full">
-            <!-- Formulário -->
-            <div class="w-full md:w-1/2 bg-white flex flex-col justify-center px-8 py-12 relative z-10">
-              <div class="mb-6">
-                <span class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full font-semibold text-sm mb-2">Bem-vindo de volta</span>
-                <h2 class="text-2xl font-bold text-indigo-700 mb-2">Entrar</h2>
-                <p class="text-gray-500 text-sm">Acesse sua conta para continuar.</p>
-              </div>
-              <form id="loginForm" class="flex flex-col gap-4">
-                <input type="email" id="loginEmail" name="email" placeholder="Email" required class="p-3 border border-indigo-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
-                <input type="password" id="loginPassword" name="password" placeholder="Senha" required class="p-3 border border-indigo-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
-                <button id="googleSignIn" type="button" class="flex items-center justify-center gap-2 p-3 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded font-bold w-full mt-1 hover:bg-indigo-100 hover:shadow transition">
-                  <span>Entrar com Google</span>
-                </button>
-                <button type="submit" id="loginBtn" class="p-3 bg-indigo-600 text-white font-bold rounded shadow hover:bg-indigo-800 transition flex items-center justify-center gap-2">Entrar</button>
-              </form>
-              <div class="msg text-center mt-2 min-h-[22px]" id="loginResult"></div>
-              <div class="flex justify-center mt-6">
-                <button id="showRegister" class="text-indigo-700 font-bold underline hover:text-indigo-900 transition bg-transparent">Criar conta</button>
-              </div>
-            </div>
-            <!-- Ilustração (adicione seu SVG aqui depois) -->
-            <div class="hidden md:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-indigo-600 to-blue-400 p-10 relative">
-              <div class="text-white text-2xl font-bold mb-2">Bem-vindo ao Capita!</div>
-              <div class="text-indigo-100 text-base text-center">Gerencie sua conta com facilidade.<br>Faça login ou registre-se para começar.</div>
-            </div>
+  <body class="min-h-screen flex items-center justify-end">
+    <div class="mr-10">
+      <div class="borda-externa bg-white flex w-[1400px] max-w-[70vw] min-h-[600px] max-h-[85vh]">
+        <!-- Lado esquerdo: Imagem -->
+        <div class="flex-1 flex items-center justify-center bg-[#f7f7fb] rounded-l-[20px]">
+          <!-- Coloque sua imagem SVG ou IMG aqui -->
+          <span class="text-[#685cdc] text-2xl font-bold opacity-60">IMAGEM</span>
+        </div>
+        <!-- Lado direito: Formulários -->
+        <div class="flex-[1.2] flex flex-col justify-center px-10 py-12 rounded-r-[20px] bg-white">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-1">Bem-vindo ao</h2>
+            <h1 class="text-3xl font-extrabold text-[#685cdc] mb-6">Capita</h1>
           </div>
-          <!-- Registro: ilustração à esquerda, formulário à direita -->
-          <div class="flex w-full">
-            <!-- Ilustração (adicione seu SVG aqui depois) -->
-            <div class="hidden md:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-indigo-600 to-blue-400 p-10 relative">
-              <div class="text-white text-2xl font-bold mb-2">Crie sua conta!</div>
-              <div class="text-indigo-100 text-base text-center">Preencha os campos para criar sua conta.<br>É rápido e fácil!</div>
-            </div>
-            <!-- Formulário -->
-            <div class="w-full md:w-1/2 bg-white flex flex-col justify-center px-8 py-12 relative z-10">
-              <div class="mb-6">
-                <span class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full font-semibold text-sm mb-2">Crie sua conta</span>
-                <h2 class="text-2xl font-bold text-indigo-700 mb-2">Registrar</h2>
-                <p class="text-gray-500 text-sm">Preencha os campos para criar sua conta.</p>
-              </div>
-              <form id="registerForm" class="flex flex-col gap-4">
-                <input type="text" id="regName" name="name" placeholder="Nome completo" required class="p-3 border border-indigo-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
-                <input type="email" id="regEmail" name="email" placeholder="Email" required class="p-3 border border-indigo-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
-                <input type="password" id="regPassword" name="password" placeholder="Senha" required class="p-3 border border-indigo-200 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
-                <button id="googleRegister" type="button" class="flex items-center justify-center gap-2 p-3 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded font-bold w-full mt-1 hover:bg-indigo-100 hover:shadow transition">
-                  <span>Cadastrar com Google</span>
-                </button>
-                <button type="submit" id="registerBtn" class="p-3 bg-indigo-600 text-white font-bold rounded shadow hover:bg-indigo-800 transition flex items-center justify-center gap-2">Cadastrar</button>
-              </form>
-              <div class="msg text-center mt-2 min-h-[22px]" id="registerResult"></div>
-              <div class="flex justify-center mt-6">
-                <button id="showLogin" class="text-indigo-700 font-bold underline hover:text-indigo-900 transition bg-transparent">Entrar</button>
-              </div>
-            </div>
+          <!-- Registro -->
+          <form id="registerForm" class="flex flex-col gap-3 mb-6 items-center">
+            <input type="text" id="regName" name="name" placeholder="Nome completo" required class="p-3 border focus:bg-gray-100 border-gray-200 w-[300px] h-[36px] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
+            <input type="email" id="regEmail" name="email" placeholder="Email" required class="p-3 border border-gray-200 rounded-lg w-[300px] h-[36px] focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
+            <input type="password" id="regPassword" name="password" placeholder="Senha" required class="p-3 border border-gray-200 rounded-lg w-[300px] h-[36px] focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
+            <button type="submit" id="registerBtn" class="mt-2 p-3 bg-[#685cdc] text-white font-bold rounded-lg hover:bg-[#574bb3] w-[300px] transition">Cadastrar</button>
+            <div class="msg text-center min-h-[22px]" id="registerResult"></div>
+          </form>
+          <!-- Separador -->
+          <div class="flex items-center my-4">
+            <div class="flex-1 h-px bg-gray-200"></div>
+            <span class="mx-3 text-gray-400 text-sm">OU</span>
+            <div class="flex-1 h-px bg-gray-200"></div>
           </div>
+          <!-- Login -->
+          <form id="loginForm" class="flex flex-col gap-3 items-center">
+            <div class="flex items-center bg-gray-100 rounded-lg px-3">
+              <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0zm8 8a8 8 0 10-16 0 8 8 0 0016 0z"/></svg>
+              <input type="email" id="loginEmail" name="email" placeholder="Email" required class="bg-transparent flex-1 py-3  w-[300px] h-[36px] outline-none text-gray-700" />
+            </div>
+            <div class="flex items-center bg-gray-100 rounded-lg px-3">
+              <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-2V9a6 6 0 10-12 0v6m12 0a2 2 0 01-2 2H8a2 2 0 01-2-2m12 0V9a6 6 0 00-12 0v6"/></svg>
+              <input type="password" id="loginPassword" name="password" placeholder="Senha" required class="bg-transparent flex-1 py-3  w-[300px] h-[36px] outline-none text-gray-700" />
+            </div>
+            <div class="flex items-center justify-between text-sm mt-2">
+              <label class="flex items-center gap-2">
+                <input type="checkbox" class="accent-[#685cdc]">
+                <span class="text-gray-600">Lembrar-me</span>
+              </label>
+              <a href="#" class="text-[#685cdc] hover:underline">Esqueceu a senha?</a>
+            </div>
+            <button type="submit" id="loginBtn" class="mt-4 bg-[#685cdc] text-white font-bold rounded-lg py-3 hover:bg-[#574bb3] w-[300px] transition">Entrar</button>
+            <div class="msg text-center mt-2 min-h-[22px]" id="loginResult"></div>
+          </form>
         </div>
       </div>
     </div>
@@ -103,10 +77,8 @@
       }
       showLogin?.addEventListener("click", showLoginForm);
       showRegister?.addEventListener("click", showRegisterForm);
-      // Começa na tela de login
       showLoginForm();
 
-      // Spinner helpers
       function showSpinner(targetId) {
         document.getElementById(targetId).innerHTML = '<div class="spinner"></div>';
       }
@@ -114,17 +86,14 @@
         document.getElementById(targetId).innerHTML = '';
       }
 
-      // Adiciona animação de carregamento ao login
       document.getElementById("loginForm")?.addEventListener("submit", function(e) {
         showSpinner("loginResult");
       });
 
-      // Adiciona animação de carregamento ao registro
       document.getElementById("registerForm")?.addEventListener("submit", function(e) {
         showSpinner("registerResult");
       });
 
-      // Firebase config para o JS principal
       window.firebaseConfig = {
         apiKey: "{{ FB_API_KEY }}",
         authDomain: "{{ FB_AUTH_DOMAIN }}",
