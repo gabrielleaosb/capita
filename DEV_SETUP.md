@@ -1,3 +1,3 @@
 ## Run Tailwind
 
-`npm run tailwind:watch`
+`npm run dev`

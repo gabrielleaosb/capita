@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import firebase_test, home,check_email
+from . import views
 
 urlpatterns = [
-    path('home/', home, name='home'),
-    path('firebase-test/', firebase_test, name='firebase_test'),
-    path('api/check-email/', check_email, name='check_email')
+    path('firebase-test/', views.firebase_test, name='firebase_test'),
+    path('verify_google_token/', views.verify_google_token, name='verify_google_token'),
+    path('api/check_email/', views.check_email, name='check_email'),
+    path('home/', views.home, name='home'),
+    path('logout/', views.logout, name='logout'),
 ]

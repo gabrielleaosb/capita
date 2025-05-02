@@ -1,4 +1,62 @@
-<div class="container">
-    <h1>Bem-vindo, {{ request.user.name }}!</h1>
-    <p>Email: {{ request.user.email }}</p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="max-w-md mx-auto mt-16 bg-white rounded-lg shadow-sm p-8 text-center">
+        <h1 class="text-2xl font-bold text-blue-600 mb-6">Capita</h1>
+        
+        <div id="userArea">
+            {% if user.name %}
+                <div class="text-xl font-bold mb-5">Olá, {{ user.name }}!</div>
+                <button id="logoutBtn" class="px-5 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
+                    Deslogar
+                </button>
+            {% else %}
+                <div id="logoutMsg" class="text-red-500 font-bold mb-5"></div>
+                <a href="{% url 'firebase_test' %}" class="inline-block">
+                    <button class="px-5 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
+                        Logue agora
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        const firebaseConfig = {
+          apiKey: "{{ FB_API_KEY }}",
+          authDomain: "{{ FB_AUTH_DOMAIN }}",
+          projectId: "{{ FB_PROJECT_ID }}",
+          storageBucket: "{{ FB_STORAGE_BUCKET }}",
+          messagingSenderId: "{{ FB_MESSAGING_SENDER_ID }}",
+          appId: "{{ FB_APP_ID }}",
+          measurementId: "{{ FB_MEASUREMENT_ID }}"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+      
+        document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
+          e.preventDefault();
+          try { await signOut(auth); } catch (e) {}
+          const response = await fetch("{% url 'logout' %}", {
+            method: "POST",
+            headers: { "X-CSRFToken": "{{ csrf_token }}" }
+          });
+          const data = await response.json();
+          if (data.status === "success") {
+            window.location.href = data.redirect_url + "&nocache=" + Date.now();
+          }
+        });
+      </script>
+</body>
+</html>

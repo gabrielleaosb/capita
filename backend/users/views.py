@@ -6,6 +6,8 @@ from firebase_admin import auth
 from .utils.email_verifier import verify_email_with_hunter
 import logging
 from django.conf import settings
+from django.urls import reverse
+
 
 FB_API_KEY = settings.FB_API_KEY
 FB_AUTH_DOMAIN = settings.FB_AUTH_DOMAIN
@@ -18,6 +20,8 @@ FB_MEASUREMENT_ID = settings.FB_MEASUREMENT_ID
 logger = logging.getLogger(__name__)
 
 def firebase_test(request):
+    if request.session.get('firebase_token'):
+        return redirect('home')
     if request.method == 'POST':
         if 'test' in request.GET:
             return JsonResponse({'status': 'ready'})
@@ -50,7 +54,7 @@ def firebase_test(request):
                 'status': 'success',
                 'user': user_data
             })
-            
+        
         except Exception as e:
             logger.error(f"Erro na autenticação Firebase: {str(e)}")
             return JsonResponse({
@@ -145,34 +149,44 @@ def verify_google_token(request):
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
 def home(request):
-    if not request.session.get('firebase_token'):
-        return redirect('firebase_test')
-    
-    try:
-        decoded_token = auth.verify_id_token(request.session['firebase_token'])
-        user = auth.get_user(decoded_token['uid'])
-        
-        return render(request, 'home.html', {
-            'user': {
+    user_data = None
+    if request.session.get('firebase_token'):
+        try:
+            decoded_token = auth.verify_id_token(request.session['firebase_token'])
+            user = auth.get_user(decoded_token['uid'])
+            user_data = {
                 'name': user.display_name,
                 'email': user.email,
-                'photo_url': user.photo_url
             }
-        })
-        
-    except Exception as e:
-        logger.error(f"Erro ao verificar token na home: {str(e)}")
-        return redirect('firebase_test')
+        except auth.RevokedSessionCookieError:
+            request.session.flush()
+            user_data = None
+        except Exception as e:
+            logger.error(f"Erro na home: {str(e)}")
+            request.session.flush()
+            user_data = None
+    return render(request, 'home.html', {
+        'user': user_data,
+        'FB_API_KEY': FB_API_KEY,
+        'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
+        'FB_PROJECT_ID': FB_PROJECT_ID,
+        'FB_STORAGE_BUCKET': FB_STORAGE_BUCKET,
+        'FB_MESSAGING_SENDER_ID': FB_MESSAGING_SENDER_ID,
+        'FB_APP_ID': FB_APP_ID,
+        'FB_MEASUREMENT_ID': FB_MEASUREMENT_ID,
+    })
 
 @csrf_exempt
 def logout(request):
     if request.method == 'POST':
         try:
-            if 'firebase_token' in request.session:
-                del request.session['firebase_token']
-            if 'user_uid' in request.session:
-                del request.session['user_uid']
-            return JsonResponse({'status': 'success'})
+            request.session.flush()         
+            response = JsonResponse({
+                'status': 'success',
+                'redirect_url': reverse('firebase_test') + '?logout=1'
+            })            
+            response.delete_cookie('sessionid')
+            return response         
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     return JsonResponse({'error': 'Método não permitido'}, status=405)
