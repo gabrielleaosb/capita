@@ -19,7 +19,7 @@ FB_MEASUREMENT_ID = settings.FB_MEASUREMENT_ID
 
 logger = logging.getLogger(__name__)
 
-def firebase_test(request):
+def login(request):
     if request.session.get('firebase_token'):
         return redirect('home')
     if request.method == 'POST':
@@ -111,7 +111,7 @@ def check_email(request):
     
     return JsonResponse({
         'valid': is_valid,
-        'reason': reason if is_valid else 'E-mail inválido',  # Mensagem padronizada
+        'reason': reason if is_valid else 'E-mail inválido', 
         'score': score,
         'exists': False,
         'status': 'verified' if is_valid else 'rejected'
@@ -180,13 +180,17 @@ def home(request):
 def logout(request):
     if request.method == 'POST':
         try:
-            request.session.flush()         
+            logger.info("Iniciando logout...")
+            request.session.flush()
+            logger.info("Sessão limpa com sucesso.")
             response = JsonResponse({
                 'status': 'success',
-                'redirect_url': reverse('firebase_test') + '?logout=1'
-            })            
+                'redirect_url': reverse('login') + '?logout=1'
+            })
             response.delete_cookie('sessionid')
-            return response         
+            logger.info("Logout concluído com sucesso.")
+            return response
         except Exception as e:
+            logger.error(f"Erro no logout: {str(e)}")
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     return JsonResponse({'error': 'Método não permitido'}, status=405)

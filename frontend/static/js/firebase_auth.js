@@ -10,11 +10,32 @@ import {
   GoogleAuthProvider
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
+
+// Verificação EXTRA robusta
+if (!window.firebaseConfig) {
+  console.error("ERRO: Configuração do Firebase não encontrada no window");
+  window.firebaseConfig = {
+    apiKey: "AIzaSyCU8VUf9yNIgY3BiqsENRdHuaFqWri-WjA",
+    authDomain: "capita-3da27.firebaseapp.com",
+    projectId: "capita-3da27",
+    storageBucket: "capita-3da27.appspot.com",
+    messagingSenderId: "235088314894",
+    appId: "1:235088314894:web:9e7acbd6183d3e0b9bb25f",
+    measurementId: "G-9TRKQQKF1X"
+  };
+  console.warn("Usando configuração fallback hardcoded");
+}
+
+console.log("Configuração que será usada:", window.firebaseConfig);
+
 const firebaseConfig = window.firebaseConfig;
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+
+console.log("Firebase Config:", window.firebaseConfig);
+
 
 const uiElements = {
   registerForm: document.getElementById('registerForm'),
@@ -150,25 +171,36 @@ async function handleLogout(e) {
     }
   }
 
-function initListeners() {
-  uiElements.showLogin?.addEventListener('click', () => {
-    document.getElementById('slideContainer').style.transform = "translateX(0%)";
-  });
-  uiElements.showRegister?.addEventListener('click', () => {
-    document.getElementById('slideContainer').style.transform = "translateX(-50%)";
-  });
-
-  uiElements.registerForm?.addEventListener('submit', handleRegister);
-  uiElements.loginForm?.addEventListener('submit', handleLogin);
-
-  uiElements.googleSignIn?.addEventListener('click', () => signInWithRedirect(auth, provider));
-  uiElements.googleRegister?.addEventListener('click', () => signInWithRedirect(auth, provider));
-
-  const logoutBtn = document.getElementById('logoutBtn');
+  function initListeners() {
+    uiElements.showLogin?.addEventListener('click', () => {
+      const slideContainer = document.getElementById('slideContainer');
+      if (slideContainer) {
+        slideContainer.style.transform = "translateX(0%)";
+      } else {
+        console.error("Elemento 'slideContainer' não encontrado.");
+      }
+    });
+  
+    uiElements.showRegister?.addEventListener('click', () => {
+      const slideContainer = document.getElementById('slideContainer');
+      if (slideContainer) {
+        slideContainer.style.transform = "translateX(-50%)";
+      } else {
+        console.error("Elemento 'slideContainer' não encontrado.");
+      }
+    });
+  
+    uiElements.registerForm?.addEventListener('submit', handleRegister);
+    uiElements.loginForm?.addEventListener('submit', handleLogin);
+  
+    uiElements.googleSignIn?.addEventListener('click', () => signInWithRedirect(auth, provider));
+    uiElements.googleRegister?.addEventListener('click', () => signInWithRedirect(auth, provider));
+  
+    const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
+      logoutBtn.addEventListener('click', handleLogout);
     }
-}
+  }
 
 document.addEventListener('DOMContentLoaded', async () => {
   initListeners();

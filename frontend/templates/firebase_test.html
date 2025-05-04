@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token }}">
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static "images/logo/icone_cor.svg" %}" type="image/svg+xml" />
     <style>
       body {
         background-color: #685cdc;
@@ -14,24 +15,33 @@
     </style>
   </head>
   <body class="min-h-screen flex items-center justify-end">
-    <div class="mr-10">
-      <div class="borda-externa bg-white flex w-[1400px] max-w-[70vw] min-h-[600px] max-h-[85vh]">
+    <img src="{% static "images/logo/icone_branco.png" %}" class="w-auto h-[220px] absolute left-[110px]">
+    <div class="mr-10 relative p-[13px]">
+      <div class="absolute inset-0 border-2 border-white rounded-[30px] bg-transparent -z-10"></div>
+      <div class="borda-externa bg-white flex w-[1450px] max-w-[75vw] min-h-[600px] max-h-[75vh] rounded-[34px] shadow-lg">
         <!-- Lado esquerdo: Imagem -->
-        <div class="flex-1 flex items-center justify-center bg-[#f7f7fb] rounded-l-[20px]">
+        <div class="flex-1 flex items-start pt-14 justify-center bg-[#f7f7fb] rounded-l-[34px]">
           <!-- Coloque sua imagem SVG ou IMG aqui -->
-          <span class="text-[#685cdc] text-2xl font-bold opacity-60">IMAGEM</span>
+          <img src="{% static "images/logo/capita.tif_cor.png" %}" class="w-auto h-[80px] object-contain">
         </div>
         <!-- Lado direito: Formulários -->
-        <div class="flex-[1.2] flex flex-col justify-center px-10 py-12 rounded-r-[20px] bg-white">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-1">Bem-vindo ao</h2>
-            <h1 class="text-3xl font-extrabold text-[#685cdc] mb-6">Capita</h1>
-          </div>
+        <div class="flex-[1.2] flex flex-col justify-center px-10 mt-8 py-12 rounded-r-[34px] bg-white">
+          <a href="{% url 'home' %}" class="text-[#685cdc] hover:underline cursor-pointer absolute bottom-8 right-12">Entre sem uma conta</a>
           <!-- Registro -->
-          <form id="registerForm" class="flex flex-col gap-3 mb-6 items-center">
-            <input type="text" id="regName" name="name" placeholder="Nome completo" required class="p-3 border focus:bg-gray-100 border-gray-200 w-[300px] h-[36px] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
-            <input type="email" id="regEmail" name="email" placeholder="Email" required class="p-3 border border-gray-200 rounded-lg w-[300px] h-[36px] focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
-            <input type="password" id="regPassword" name="password" placeholder="Senha" required class="p-3 border border-gray-200 rounded-lg w-[300px] h-[36px] focus:outline-none focus:ring-2 focus:ring-[#685cdc] transition" />
+          <form id="registerForm" class="flex flex-col gap-3 items-center">
+            <h1 class="font-bold text-[20px]">Criar Conta</h1>
+            <div class="flex items-center bg-gray-100 rounded-lg px-3 gap-4">
+              <img src="{% static "images/icons/user_black.svg" %}" alt="Icone de usuario">
+              <input type="text" id="regName" name="name" placeholder="Nome completo" required class="bg-transparent flex-1 py-3 w-[380px] h-[50px] outline-none text-gray-700" />
+            </div>
+            <div class="flex items-center bg-gray-100 rounded-lg px-3 gap-4">
+              <img src="{% static "images/icons/email_icon_black.svg" %}" alt="Icone de email">
+              <input type="email" id="regEmail" name="email" placeholder="Email" required class="bg-transparent flex-1 py-3 w-[380px] h-[50px] outline-none text-gray-700" />
+            </div>
+            <div class="flex items-center bg-gray-100 rounded-lg px-3 gap-4">
+              <img src="{% static "images/icons/key_black.svg" %}" alt="Icone de senha" class="rotate-[135deg]">
+              <input type="password" id="regPassword" name="password" placeholder="Senha" required class="bg-transparent flex-1 py-3 w-[380px] h-[50px] outline-none text-gray-700" />
+            </div>
             <button type="submit" id="registerBtn" class="mt-2 p-3 bg-[#685cdc] text-white font-bold rounded-lg hover:bg-[#574bb3] w-[300px] transition">Cadastrar</button>
             <div class="msg text-center min-h-[22px]" id="registerResult"></div>
           </form>
@@ -42,16 +52,17 @@
             <div class="flex-1 h-px bg-gray-200"></div>
           </div>
           <!-- Login -->
-          <form id="loginForm" class="flex flex-col gap-3 items-center">
-            <div class="flex items-center bg-gray-100 rounded-lg px-3">
-              <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0zm8 8a8 8 0 10-16 0 8 8 0 0016 0z"/></svg>
-              <input type="email" id="loginEmail" name="email" placeholder="Email" required class="bg-transparent flex-1 py-3  w-[300px] h-[36px] outline-none text-gray-700" />
+          <form id="loginForm" class="flex flex-col gap-3 mt-2 items-center">
+            <h1 class="font-bold text-[20px]">Entrar</h1>
+            <div class="flex items-center bg-gray-100 rounded-lg px-3 gap-4">
+              <img src="{% static "images/icons/email_icon_black.svg" %}" alt="Icone de email">
+              <input type="email" id="loginEmail" name="email" placeholder="Email" required class="bg-transparent flex-1 py-3 w-[380px] h-[50px] outline-none text-gray-700" />
             </div>
-            <div class="flex items-center bg-gray-100 rounded-lg px-3">
-              <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-2V9a6 6 0 10-12 0v6m12 0a2 2 0 01-2 2H8a2 2 0 01-2-2m12 0V9a6 6 0 00-12 0v6"/></svg>
-              <input type="password" id="loginPassword" name="password" placeholder="Senha" required class="bg-transparent flex-1 py-3  w-[300px] h-[36px] outline-none text-gray-700" />
+            <div class="flex items-center bg-gray-100 rounded-lg px-3 gap-4">
+              <img src="{% static "images/icons/key_black.svg" %}" alt="Icone de senha" class="rotate-[135deg]">
+              <input type="password" id="loginPassword" name="password" placeholder="Senha" required class="bg-transparent flex-1 py-3 w-[380px] h-[50px] outline-none text-gray-700" />
             </div>
-            <div class="flex items-center justify-between text-sm mt-2">
+            <div class="flex items-center justify-between text-sm mt-2 w-[300px]">
               <label class="flex items-center gap-2">
                 <input type="checkbox" class="accent-[#685cdc]">
                 <span class="text-gray-600">Lembrar-me</span>
@@ -65,35 +76,11 @@
       </div>
     </div>
     <script type="module">
-      const slideContainer = document.getElementById("slideContainer");
+      console.log("Script do template executado");
+
       const showLogin = document.getElementById("showLogin");
       const showRegister = document.getElementById("showRegister");
-
-      function showLoginForm() {
-        slideContainer.style.transform = "translateX(0%)";
-      }
-      function showRegisterForm() {
-        slideContainer.style.transform = "translateX(-50%)";
-      }
-      showLogin?.addEventListener("click", showLoginForm);
-      showRegister?.addEventListener("click", showRegisterForm);
-      showLoginForm();
-
-      function showSpinner(targetId) {
-        document.getElementById(targetId).innerHTML = '<div class="spinner"></div>';
-      }
-      function hideSpinner(targetId) {
-        document.getElementById(targetId).innerHTML = '';
-      }
-
-      document.getElementById("loginForm")?.addEventListener("submit", function(e) {
-        showSpinner("loginResult");
-      });
-
-      document.getElementById("registerForm")?.addEventListener("submit", function(e) {
-        showSpinner("registerResult");
-      });
-
+      
       window.firebaseConfig = {
         apiKey: "{{ FB_API_KEY }}",
         authDomain: "{{ FB_AUTH_DOMAIN }}",
@@ -103,6 +90,8 @@
         appId: "{{ FB_APP_ID }}",
         measurementId: "{{ FB_MEASUREMENT_ID }}"
       };
+      console.log("Config definida no template:", window.firebaseConfig);
+
 
       if (window.location.search.includes('logout=1')) {
         localStorage.clear();
@@ -111,7 +100,7 @@
             document.cookie = cookie.replace(/^ +/, '')
                 .replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`);
         });
-        window.location.href = "{% url 'firebase_test' %}?nocache=" + Date.now();
+        window.location.href = "{% url 'login' %}?nocache=" + Date.now();
       }
     </script>
     <script type="module" src="{% static 'js/firebase_auth.js' %}"></script>
