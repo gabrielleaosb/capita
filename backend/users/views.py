@@ -19,6 +19,50 @@ FB_MEASUREMENT_ID = settings.FB_MEASUREMENT_ID
 
 logger = logging.getLogger(__name__)
 
+def register(request):
+    if request.session.get('firebase_token'):
+        return redirect('home')
+    if request.method == 'POST':
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Token não fornecido'
+            }, status=401)
+        try:
+            token = auth_header.split('Bearer ')[1]
+            user_data = get_user_data(token)
+            if not user_data:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Token inválido'
+                }, status=401)
+            firebase_user = create_or_update_user(user_data)
+            if not firebase_user:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Erro ao processar usuário'
+                }, status=500)
+            return JsonResponse({
+                'status': 'success',
+                'user': user_data
+            })
+        except Exception as e:
+            logger.error(f"Erro no registro Firebase: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+    return render(request, 'register.html', {
+        'FB_API_KEY': FB_API_KEY,
+        'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
+        'FB_PROJECT_ID': FB_PROJECT_ID,
+        'FB_STORAGE_BUCKET': FB_STORAGE_BUCKET,
+        'FB_MESSAGING_SENDER_ID': FB_MESSAGING_SENDER_ID,
+        'FB_APP_ID': FB_APP_ID,
+        'FB_MEASUREMENT_ID': FB_MEASUREMENT_ID,
+    })
+
 def login(request):
     if request.session.get('firebase_token'):
         return redirect('home')
@@ -62,7 +106,7 @@ def login(request):
                 'message': str(e)
             }, status=500)
     
-    return render(request, 'firebase_test.html', {
+    return render(request, 'login.html', {
         'FB_API_KEY': FB_API_KEY,
         'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
         'FB_PROJECT_ID': FB_PROJECT_ID,

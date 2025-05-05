@@ -76,10 +76,28 @@ async function sendTokenToBackend(token) {
     },
     body: `token=${token}`
   });
-  
+
   const data = await response.json();
   if (data.status === 'success') {
-    window.location.href = data.redirect_url || '/home/';
+    const loginDiv = document.getElementById('loginResult');
+    const registerDiv = document.getElementById('registerResult');
+    let targetDiv = loginDiv || registerDiv;
+    if (targetDiv) {
+      targetDiv.textContent = loginDiv
+        ? 'Logado com sucesso!'
+        : 'Conta criada com sucesso!';
+      targetDiv.classList.remove('text-red-600', 'text-green-600');
+      targetDiv.classList.add('animate-pulse-grow');
+      targetDiv.style.color = '#06A3DA'; 
+      targetDiv.style.fontWeight = 'bold'; 
+      setTimeout(() => {
+        window.location.href = data.redirect_url || '/home/';
+      }, 2200);
+    } else {
+      setTimeout(() => {
+        window.location.href = data.redirect_url || '/home/';
+      }, 2200);
+    }
   } else {
     throw new Error(data.message || 'Erro no backend');
   }

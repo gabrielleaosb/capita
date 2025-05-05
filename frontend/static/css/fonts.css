@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:wght@400;600;700;800&family=Roboto+Slab:wght@100..900&display=swap');
+
+/* Lato */
+.font-lato-thin        { font-family: 'Lato', sans-serif; font-weight: 100; }
+.font-lato-light       { font-family: 'Lato', sans-serif; font-weight: 300; }
+.font-lato-regular     { font-family: 'Lato', sans-serif; font-weight: 400; }
+.font-lato-bold        { font-family: 'Lato', sans-serif; font-weight: 700; }
+.font-lato-black       { font-family: 'Lato', sans-serif; font-weight: 900; }
+.font-lato-italic      { font-family: 'Lato', sans-serif; font-style: italic; }
+
+/* Poppins */
+.font-poppins-regular  { font-family: 'Poppins', sans-serif; font-weight: 400; }
+.font-poppins-semibold { font-family: 'Poppins', sans-serif; font-weight: 600; }
+.font-poppins-bold     { font-family: 'Poppins', sans-serif; font-weight: 700; }
+.font-poppins-extrabold{ font-family: 'Poppins', sans-serif; font-weight: 800; }
+
+/* Fira Code */
+.font-firacode-light   { font-family: 'Fira Code', monospace; font-weight: 300; }
+.font-firacode-regular { font-family: 'Fira Code', monospace; font-weight: 400; }
+.font-firacode-medium  { font-family: 'Fira Code', monospace; font-weight: 500; }
+.font-firacode-semibold{ font-family: 'Fira Code', monospace; font-weight: 600; }
+.font-firacode-bold    { font-family: 'Fira Code', monospace; font-weight: 700; }
+
+/* Roboto Slab */
+.font-robotoslab-thin    { font-family: 'Roboto Slab', serif; font-weight: 100; }
+.font-robotoslab-light   { font-family: 'Roboto Slab', serif; font-weight: 300; }
+.font-robotoslab-regular { font-family: 'Roboto Slab', serif; font-weight: 400; }
+.font-robotoslab-medium  { font-family: 'Roboto Slab', serif; font-weight: 500; }
+.font-robotoslab-semibold{ font-family: 'Roboto Slab', serif; font-weight: 600; }
+.font-robotoslab-bold    { font-family: 'Roboto Slab', serif; font-weight: 700; }
+.font-robotoslab-extrabold{ font-family: 'Roboto Slab', serif; font-weight: 800; }
+.font-robotoslab-black   { font-family: 'Roboto Slab', serif; font-weight: 900; }
