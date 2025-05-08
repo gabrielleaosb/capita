@@ -7,6 +7,8 @@ from .utils.email_verifier import verify_email_with_hunter
 import logging
 from django.conf import settings
 from django.urls import reverse
+import time
+from datetime import datetime, timedelta
 
 
 FB_API_KEY = settings.FB_API_KEY
@@ -165,52 +167,98 @@ def check_email(request):
 def verify_google_token(request):
     if request.method == 'POST':
         token = request.POST.get('token')
+        if not token:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Token não fornecido'
+            }, status=400)
+        
         try:
-            decoded_token = auth.verify_id_token(token)
+            # Configuração da margem de tolerância (nova forma)
+            from firebase_admin import _token_gen
+            _token_gen.DEFAULT_LEEWAY_SECONDS = 30  # 2 minutos de tolerância
+            
+            decoded_token = auth.verify_id_token(
+                token,
+                check_revoked=True,
+                clock_skew_seconds=30  # Alternativa direta na verificação
+            )
+            
+            # Verificação adicional do timestamp
+            current_time = time.time()
+            token_iat = decoded_token['iat']
+            
+            if token_iat > current_time + 120:
+                logger.warning(f"Dessincronização de horário: Server={current_time}, Token={token_iat}")
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Problema de sincronização de horário'
+                }, status=400)
+            
+            # Armazena a sessão
             request.session['firebase_token'] = token
             request.session['user_uid'] = decoded_token['uid']
             
-            # Cria ou atualiza usuário no seu sistema
+            # Obtém dados completos do usuário
             user = auth.get_user(decoded_token['uid'])
-            create_or_update_user({
+            
+            # Cria/atualiza usuário no sistema
+            user_data = {
                 'uid': user.uid,
                 'email': user.email,
                 'display_name': user.display_name,
                 'photo_url': user.photo_url
-            })
+            }
+            create_or_update_user(user_data)
             
             return JsonResponse({
                 'status': 'success',
-                'redirect_url': '/home/'
+                'redirect_url': '/home/',
+                'user': user_data
             })
             
-        except Exception as e:
-            logger.error(f"Erro na verificação do token Google: {str(e)}")
+        except auth.InvalidIdTokenError as e:
+            logger.error(f"Token inválido: {str(e)}")
             return JsonResponse({
                 'status': 'error',
-                'message': 'Falha na autenticação com Google'
+                'message': 'Token de autenticação inválido'
             }, status=400)
+            
+        except auth.ExpiredIdTokenError:
+            logger.warning("Token expirado")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Sessão expirada, faça login novamente'
+            }, status=401)
+            
+        except auth.RevokedIdTokenError:
+            logger.warning("Token revogado")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Sessão revogada, faça login novamente'
+            }, status=401)
+            
+        except auth.CertificateFetchError:
+            logger.error("Erro ao buscar certificados do Firebase")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Erro de configuração do servidor'
+            }, status=500)
+            
+        except Exception as e:
+            logger.error(f"Erro desconhecido: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Erro interno no servidor'
+            }, status=500)
+    
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
 def home(request):
-    user_data = None
-    if request.session.get('firebase_token'):
-        try:
-            decoded_token = auth.verify_id_token(request.session['firebase_token'])
-            user = auth.get_user(decoded_token['uid'])
-            user_data = {
-                'name': user.display_name,
-                'email': user.email,
-            }
-        except auth.RevokedSessionCookieError:
-            request.session.flush()
-            user_data = None
-        except Exception as e:
-            logger.error(f"Erro na home: {str(e)}")
-            request.session.flush()
-            user_data = None
-    return render(request, 'home.html', {
-        'user': user_data,
+    # Dados básicos que são sempre enviados
+    context = {
+        'user': None,
+        'show_chat': False,  # Novo campo para controlar a exibição do chat
         'FB_API_KEY': FB_API_KEY,
         'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
         'FB_PROJECT_ID': FB_PROJECT_ID,
@@ -218,7 +266,35 @@ def home(request):
         'FB_MESSAGING_SENDER_ID': FB_MESSAGING_SENDER_ID,
         'FB_APP_ID': FB_APP_ID,
         'FB_MEASUREMENT_ID': FB_MEASUREMENT_ID,
-    })
+    }
+
+    # Verifica se tem token na sessão
+    if request.session.get('firebase_token'):
+        try:
+            # Verifica o token do Firebase
+            decoded_token = auth.verify_id_token(request.session['firebase_token'])
+            user = auth.get_user(decoded_token['uid'])
+            
+            # Atualiza o contexto com dados do usuário
+            context.update({
+                'user': {
+                    'name': user.display_name,
+                    'email': user.email,
+                },
+                'show_chat': True  # Habilita o chat para usuários autenticados
+            })
+            
+        except auth.RevokedSessionCookieError:
+            # Token revogado - limpa a sessão
+            request.session.flush()
+            logger.warning("Sessão revogada - token inválido")
+            
+        except Exception as e:
+            # Outros erros - limpa a sessão e loga o erro
+            request.session.flush()
+            logger.error(f"Erro na verificação do token: {str(e)}")
+
+    return render(request, 'home.html', context)
 
 @csrf_exempt
 def logout(request):

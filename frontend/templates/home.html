@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="{% static "images/logo/icone_cor.svg" %}" type="image/svg+xml" />
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body class="bg-gray-50 font-sans">
   <nav class="fixed top-0 bg-blue-800 w-full h-[100px] -z-10">
@@ -24,11 +27,66 @@
               </button>
           </a>
       {% endif %}
-  </div>
+    </div>
   </nav>
   
+  {% if show_chat or not show_chat is defined %}
+  <!-- Configuração do Chat -->
+  <div id="chat-config" 
+       data-api-url="/chat/api/" 
+       data-csrf-token="{{ csrf_token }}"
+       style="display: none;">
+  </div>
 
+  <!-- Botão do Chatbot -->
+  <div id="chatbot-button" class="animate-pulse-grow">
+    <i class="fas fa-comment-dots text-2xl"></i>
+  </div>
 
+  <!-- Modal do Chatbot -->
+  <div id="chatbot-modal" class="chatbot-modal animate-grow-in hidden">
+    <!-- Cabeçalho -->
+    <div class="chat-header font-p">
+      <div class="flex items-center gap-3">
+        <div class="chatbot-icon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h5 class="chatbot-title">
+          CapitAI <span class="chatbot-subtitle">Assistente Financeiro</span>
+        </h5>
+      </div>
+      <button id="chatbot-close" class="chatbot-close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <!-- Área de Mensagens -->
+    <div class="chatbot-messages" id="chatbot-messages">
+      <!-- Mensagem inicial do bot -->
+      <div class="message-container">
+        <div class="sender-name bot-name">CapitAI</div>
+        <div class="bot-message">
+          Olá! Sou o CapitAI, seu assistente virtual de investimentos. Como posso ajudar?
+        </div>
+      </div>
+    </div>
+    
+    <!-- Área de Input -->
+    <div class="chat-input-container">
+      <div class="chat-input-wrapper">
+        <input 
+          type="text" 
+          id="chatbot-input" 
+          placeholder="Digite sua mensagem..." 
+          class="chatbot-input"
+        >
+        <button id="chatbot-send" class="chatbot-send-btn">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -57,5 +115,6 @@
           }
         });
       </script>
+      <script src="{% static 'js/chatbot.js' %}"></script>
 </body>
 </html>

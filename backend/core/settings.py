@@ -19,6 +19,8 @@ FB_MESSAGING_SENDER_ID=os.getenv('FB_MESSAGING_SENDER_ID')
 FB_APP_ID=os.getenv('FB_APP_ID')
 FB_MEASUREMENT_ID=os.getenv('FB_MEASUREMENT_ID')
 
+HF_TOKEN=os.getenv('HF_TOKEN')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'chat',
     'corsheaders',
 ]
 
