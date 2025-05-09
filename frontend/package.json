@@ -5,5 +5,8 @@
   },
   "scritps": {
     "dev": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --watch"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.35"
   }
 }

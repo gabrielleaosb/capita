@@ -55,7 +55,7 @@ def register(request):
                 'status': 'error',
                 'message': str(e)
             }, status=500)
-    return render(request, 'register.html', {
+    return render(request, 'auth/register.html', {
         'FB_API_KEY': FB_API_KEY,
         'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
         'FB_PROJECT_ID': FB_PROJECT_ID,
@@ -108,7 +108,7 @@ def login(request):
                 'message': str(e)
             }, status=500)
     
-    return render(request, 'login.html', {
+    return render(request, 'auth/login.html', {
         'FB_API_KEY': FB_API_KEY,
         'FB_AUTH_DOMAIN': FB_AUTH_DOMAIN,
         'FB_PROJECT_ID': FB_PROJECT_ID,
@@ -202,7 +202,6 @@ def verify_google_token(request):
             # Obtém dados completos do usuário
             user = auth.get_user(decoded_token['uid'])
             
-            # Cria/atualiza usuário no sistema
             user_data = {
                 'uid': user.uid,
                 'email': user.email,
@@ -305,7 +304,7 @@ def logout(request):
             logger.info("Sessão limpa com sucesso.")
             response = JsonResponse({
                 'status': 'success',
-                'redirect_url': reverse('login') + '?logout=1'
+                'redirect_url': reverse('home')
             })
             response.delete_cookie('sessionid')
             logger.info("Logout concluído com sucesso.")

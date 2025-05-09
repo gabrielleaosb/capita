@@ -86,7 +86,7 @@ def chat_api(request):
                 max_new_tokens=150,
                 temperature=0.3,
                 repetition_penalty=1.8,
-                stop_sequences=["\n"]
+                stop=["\n"]
             )
 
             clean_response = response.split("[/INST]")[-1].strip()

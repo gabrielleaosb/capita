@@ -5,47 +5,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <title>Home</title>
+    <title>Capita | Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="{% static "images/logo/icone_cor.svg" %}" type="image/svg+xml" />
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+      .dropdown-fade {
+        transition: opacity 0.2s, visibility 0.2s;
+      }
+      .dropdown-fade[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+      }
+      .dropdown-fade[aria-hidden="false"] {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+      }
+      .backdrop-blur {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans">
-  <nav class="fixed top-0 bg-blue-800 w-full h-[100px] -z-10">
-    <div id="userArea">
-      {% if user.name %}
-          <div class="text-xl font-bold mb-5">Olá, {{ user.name }}!</div>
-          <button id="logoutBtn" class="px-5 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
-              Deslogar
-          </button>
-      {% else %}
-          <div id="logoutMsg" class="text-red-500 font-bold mb-5"></div>
-          <a href="{% url 'login' %}" class="inline-block">
-              <button class="px-5 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
-                  Logue agora
-              </button>
-          </a>
-      {% endif %}
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="w-full h-[70px] bg-[#101c3c] flex items-center justify-between px-8 shadow relative z-20">
+    <!-- Logo à esquerda -->
+    <div class="flex items-center gap-3">
+      <img src="{% static 'images/logo/icone_cor.svg' %}" alt="Logo" class="h-10 w-10">
+      <span class="text-white text-2xl font-bold">Capita</span>
     </div>
+    <!-- Usuário à direita -->
+    {% if user %}
+      <div class="relative">
+        <button id="userMenuBtn" class="flex items-center gap-2 text-white font-semibold focus:outline-none">
+          <span>{{ user.name }}</span>
+          <i class="fa fa-chevron-down text-xs"></i>
+        </button>
+        <!-- Dropdown estilizado -->
+        <div id="userDropdown"
+             class="absolute right-0 mt-2 w-44 bg-white/60 backdrop-blur rounded-xl shadow-lg py-2 dropdown-fade"
+             aria-hidden="true">
+          <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-t-xl transition">Account</a>
+          <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded-b-xl transition">Logout</button>
+        </div>
+      </div>
+    {% else %}
+      <a href="{% url 'login' %}" class="inline-block">
+        <button class="px-5 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
+          Logue agora
+        </button>
+      </a>
+    {% endif %}
   </nav>
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 container mx-auto px-6 py-10">
+    <h1 class="text-3xl font-bold mb-6">Bem-vindo ao Capita!</h1>
+    <!-- Seu conteúdo aqui -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-800 text-white py-4 mt-auto">
+    <div class="container mx-auto text-center text-sm">
+      &copy; {{ now|date:"Y" }} Capita. Todos os direitos reservados.
+    </div>
+  </footer>
   
-  {% if show_chat or not show_chat is defined %}
+  {% if show_chat %}
   <!-- Configuração do Chat -->
   <div id="chat-config" 
        data-api-url="/chat/api/" 
        data-csrf-token="{{ csrf_token }}"
        style="display: none;">
   </div>
-
-  <!-- Botão do Chatbot -->
   <div id="chatbot-button" class="animate-pulse-grow">
     <i class="fas fa-comment-dots text-2xl"></i>
   </div>
 
-  <!-- Modal do Chatbot -->
   <div id="chatbot-modal" class="chatbot-modal animate-grow-in hidden">
-    <!-- Cabeçalho -->
     <div class="chat-header font-p">
       <div class="flex items-center gap-3">
         <div class="chatbot-icon">
@@ -60,9 +101,7 @@
       </button>
     </div>
     
-    <!-- Área de Mensagens -->
     <div class="chatbot-messages" id="chatbot-messages">
-      <!-- Mensagem inicial do bot -->
       <div class="message-container">
         <div class="sender-name bot-name">CapitAI</div>
         <div class="bot-message">
@@ -71,7 +110,6 @@
       </div>
     </div>
     
-    <!-- Área de Input -->
     <div class="chat-input-container">
       <div class="chat-input-wrapper">
         <input 
@@ -88,33 +126,51 @@
   </div>
   {% endif %}
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        const firebaseConfig = {
-          apiKey: "{{ FB_API_KEY }}",
-          authDomain: "{{ FB_AUTH_DOMAIN }}",
-          projectId: "{{ FB_PROJECT_ID }}",
-          storageBucket: "{{ FB_STORAGE_BUCKET }}",
-          messagingSenderId: "{{ FB_MESSAGING_SENDER_ID }}",
-          appId: "{{ FB_APP_ID }}",
-          measurementId: "{{ FB_MEASUREMENT_ID }}"
-        };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-      
-        document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
-          e.preventDefault();
-          try { await signOut(auth); } catch (e) {}
-          const response = await fetch("{% url 'logout' %}", {
-            method: "POST",
-            headers: { "X-CSRFToken": "{{ csrf_token }}" }
-          });
-          const data = await response.json();
-          if (data.status === "success") {
-            window.location.href = data.redirect_url + "&nocache=" + Date.now();
-          }
-        });
-      </script>
-      <script src="{% static 'js/chatbot.js' %}"></script>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "{{ FB_API_KEY }}",
+      authDomain: "{{ FB_AUTH_DOMAIN }}",
+      projectId: "{{ FB_PROJECT_ID }}",
+      storageBucket: "{{ FB_STORAGE_BUCKET }}",
+      messagingSenderId: "{{ FB_MESSAGING_SENDER_ID }}",
+      appId: "{{ FB_APP_ID }}",
+      measurementId: "{{ FB_MEASUREMENT_ID }}"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Dropdown toggle
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    if (userMenuBtn && userDropdown) {
+      userMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = userDropdown.getAttribute('aria-hidden') === 'false';
+        userDropdown.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+      });
+      document.addEventListener('click', () => {
+        userDropdown.setAttribute('aria-hidden', 'true');
+      });
+      userDropdown.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    // Logout
+    document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try { await signOut(auth); } catch (e) {}
+      const response = await fetch("{% url 'logout' %}", {
+        method: "POST",
+        headers: { "X-CSRFToken": "{{ csrf_token }}" }
+      });
+      const data = await response.json();
+      if (data.status === "success") {
+        let url = data.redirect_url;
+        url += (url.includes('?') ? '&' : '?') + 'nocache=' + Date.now();
+        window.location.href = url;
+      }
+    });
+  </script>
+  <script src="{% static 'js/chatbot.js' %}"></script>
 </body>
 </html>
